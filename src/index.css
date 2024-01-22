@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-blue: 228, 69%, 13%;
+    --blue-hover:228, 69%, 20%;
+    --white: 0, 0%, 100%;
+    --dark: 0, 0%, 13%;
+    --grey: 0, 2%, 44%;
+    --green-shade: 137, 87%, 91%;
+    --peach-shade:11, 87%, 91%;
+    --pink-shade:306, 87%, 91%;
+    --yellow-shade:50, 87%, 91%;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
