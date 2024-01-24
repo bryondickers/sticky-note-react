@@ -8,36 +8,12 @@ import { useQuery } from "@tanstack/react-query";
 function App() {
   const [displayNoteInput, setDisplayNoteInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [editId, setEditId] = useState(null);
   const [inputName, setInputName] = useState("Add a new note");
-  const [selectedNoteId, setSelectedNoteId] = useState();
   const { data, error, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: () => {
       return axios.get("https://64b6b8aadf0839c97e16081a.mockapi.io/tasks");
-    },
-  });
-
-  const {
-    data: getNoteToEdit,
-    error: editNoteError,
-    isError,
-    isSuccess,
-    refetch,
-  } = useQuery({
-    queryKey: ["post", selectedNoteId],
-    queryFn: () => {
-      return axios
-        .get(
-          `https://64b6b8aadf0839c97e16081a.mockapi.io/tasks/${selectedNoteId}`
-        )
-        .then((data) => data);
-    },
-    onSuccess: (fetchedData) => {
-      // Handle logic when data is successfully fetched
-      console.log(fetchedData);
-    },
-    onError: (error) => {
-      console.log(error);
     },
   });
 
@@ -52,14 +28,16 @@ function App() {
   const getNotes = notes.map((note) => (
     <Note
       key={note.id}
+      id={note.id}
       content={note.content}
-      handleEditClick={() => {
-        setSelectedNoteId(note.id);
-        refetch();
+      handleEditClick={(note, id) => {
+        console.log(note);
+        console.log(id);
+        setEditId(id);
         setInputName("Edit Note");
         setDisplayNoteInput((prevDisolayState) => !prevDisolayState);
+        setInputValue(note);
       }}
-      id={note.id}
       date={note.date}
     />
   ));
@@ -69,9 +47,13 @@ function App() {
       <header className="font-sans md:flex md:flex-row md:justify-between md:items-center">
         <h1 className="text-2xl my-5 font-bold text-primaryBlue">My Notes</h1>
         <AddNewNoteBtn
-          handleShowNoteInput={() =>
-            setDisplayNoteInput((prevDisplayNoteInput) => !prevDisplayNoteInput)
-          }
+          handleShowNoteInput={() => {
+            setInputName("Add a new note");
+            setInputValue("");
+            setDisplayNoteInput(
+              (prevDisplayNoteInput) => !prevDisplayNoteInput
+            );
+          }}
         />
       </header>
       <div className="flex flex-row flex-wrap gap-4">{getNotes}</div>
@@ -81,8 +63,11 @@ function App() {
           setInputValue(e.target.value);
         }}
         value={inputValue}
-        noteId={selectedNoteId}
+        noteId={editId}
         name={inputName}
+        handleExitSuccess={() =>
+          setDisplayNoteInput((prevDisplayNoteInput) => !prevDisplayNoteInput)
+        }
         exitNoteInput={displayNoteInput}
         handleExitInput={() =>
           setDisplayNoteInput((prevDisplayNoteInput) => !prevDisplayNoteInput)

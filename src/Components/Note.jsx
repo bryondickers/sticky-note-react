@@ -1,7 +1,7 @@
 import DeleteBtn from "./DeleteBtn";
 import EditBtn from "./EditBtn";
 import { useState } from "react";
-export default function Note({ content, date, handleEditClick }) {
+export default function Note({ content,id, date, handleEditClick }) {
   const colors = [
     "bg-greenShade",
     "bg-peachShade",
@@ -20,8 +20,8 @@ export default function Note({ content, date, handleEditClick }) {
       <div className="w-full flex flex-row items-center justify-between mt-6">
         <p className="text-xs text-grey">{date}</p>
         <div className="flex flex-row items-center">
-          <EditBtn handleEditClick={handleEditClick} />
-          <DeleteBtn />
+          <EditBtn handleEditClick={()=>handleEditClick(content,id)} />
+          <DeleteBtn noteId={id} />
         </div>
       </div>
     </article>

@@ -1,5 +1,5 @@
 import editIcon from "../assets/edit-icon.svg";
-export default function EditBtn({ noteId, handleEditClick }) {
+export default function EditBtn({ handleEditClick }) {
   // function handleEditClick(e) {
   //   console.log(noteId);
   // }
