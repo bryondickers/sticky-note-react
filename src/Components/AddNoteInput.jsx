@@ -77,7 +77,8 @@ export default function AddNoteInput({
             <div className="mx-auto mb-5" id="success">
               <img className="mx-auto" src={successIcon} />
               <p className="text-center font-bold text-2xl">
-                Note added successfully
+                Note {name === "Add a new note" ? "added" : "updated"}{" "}
+                successfully
               </p>
             </div>
           ) : (
