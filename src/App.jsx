@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddNewNoteBtn from "./Components/AddNewNoteBtn";
 import Note from "./Components/Note";
 import AddNoteInput from "./Components/AddNoteInput";
@@ -65,9 +65,6 @@ function App() {
         value={inputValue}
         noteId={editId}
         name={inputName}
-        handleExitSuccess={() =>
-          setDisplayNoteInput((prevDisplayNoteInput) => !prevDisplayNoteInput)
-        }
         exitNoteInput={displayNoteInput}
         handleExitInput={() =>
           setDisplayNoteInput((prevDisplayNoteInput) => !prevDisplayNoteInput)
